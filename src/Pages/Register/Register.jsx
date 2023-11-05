@@ -1,6 +1,16 @@
+/* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { useContext, useState } from "react";
+import Swal from "sweetalert2";
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
+
+    const [regError, setRegError] = useState('')
+    const [regSuccess, setRegSuccess] = useState('')
+    const {createUser} = useContext(AuthContext);
+
     const handleRegister = e => {
         e.preventDefault();
         console.log(e.currentTarget)
@@ -10,30 +20,44 @@ const Register = () => {
         const email = form.get('email');
         const password = form.get('password')
         const upperCase = /[A-Z]/;
-        // if(password <6 || !upperCase.test(password) ||!password.match(/[!"#$%&'()*+,-.:;<=>?@[\]^_`{|}~]/)){
-        //     swal("Error", "Minimum 6 character, 1 uppercase and one special character needed", "error");
-        //     return;
-        // }
-        // setRegError('')
-        // setRegSuccess('')
-        // createUser(email,password)
-        // .then(result =>{
-        //     console.log(result.user)
-        //     swal("Good job!", "Registration successful", "success");
+        if(password <6 || !upperCase.test(password) ||!password.match(/[!"#$%&'()*+,-.:;<=>?@[\]^_`{|}~]/)){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Minimum 6 character, 1 uppercase and one special character needed",
+                footer: '<a href="">Why do I have this issue?</a>'
+              })
+            return;
+        }
+        setRegError('')
+        setRegSuccess('')
+        createUser(email,password)
+        .then(result =>{
+            console.log(result.user)
+            Swal.fire(
+                'Good job!',
+                'You clicked the button!',
+                'success'
+              )
 
-        //     // update 
-        //     updateProfile(result.user, {
-        //         displayName:name,
-        //         photoURL:imgUrl
+            // update 
+            updateProfile(result.user, {
+                displayName:name,
+                photoURL:imgUrl
 
-        //     })
-        //     .then(()=> console.log("updated"))
-        //     .catch()
-        // })
-        // .catch(error =>{
-        //     console.error(error);
-        //     swal("Error", "This email is already used", "error")
-        // })
+            })
+            .then(()=> console.log("updated"))
+            .catch()
+        })
+        .catch(error =>{
+            console.error(error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'incorrect password or email',
+                footer: '<a href="">Why do I have this issue?</a>'
+              })
+        })
 
 
     }
