@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Navbar = () => {
+    const {user} = useContext(AuthContext)
     const navLinks = <>
     <li><NavLink to='/' className={({ isActive, isPending }) =>
         isPending ? "pending" : isActive ? "text-stone-500 font-bold underline" : ""
@@ -56,7 +59,7 @@ const Navbar = () => {
             </label>
             {/* https://i.ibb.co/fqgXySz/avater.png */}
             <div className="dropdown dropdown-end">
-                {/* {
+                {
                     user ?
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             {
@@ -76,21 +79,21 @@ const Navbar = () => {
                                 <img src="https://i.ibb.co/ZBXgGBM/user.png" />
                             </div>
                         </label>
-                } */}
+                }
 
                 <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral rounded-box w-52">
                     <li>
-                        {/* {
+                        {
                             user ?
                                 <div className="flex flex-col items-start justify-start text-left">
                                     <p>Welcome,{user.displayName}</p>
-                                    <button onClick={handleSignOut} className="btn">Log out</button>
+                                    <button  className="btn">Log out</button>
                                 </div>
                                 :
                                 <Link to='/login'>
                                     <button className="btn bg-yellow-400 font-bold">Login</button>
                                 </Link>
-                        } */}
+                        }
                     </li>
                 </ul>
             </div>

@@ -1,23 +1,38 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Login = () => {
+
+    const {logIn,googleLogin} = useContext(AuthContext)
+    const location = useLocation();
+    const navigate = useNavigate()
+    const [logInErr, setLogInErr] = useState('')
+
+
     const handleLogin = e => {
         e.preventDefault();
         console.log(e.currentTarget)
         const form = new FormData(e.currentTarget);
         const email = form.get('email')
         const password = form.get('password')
-        // setLogInErr('')
-        // logIn(email,password)
-        // .then(result =>{
-        //     console.log(result.user)
-        //     navigate(location?.state ? location.state: '/')
-        // })
-        // .catch(error =>{
-        //     console.error(error)
-        //     swal("Error", "incorrect email or password", "error")
-        // }) 
+        setLogInErr('')
+        logIn(email,password)
+        .then(result =>{
+            console.log(result.user)
+            navigate(location?.state ? location.state: '/')
+        })
+        .catch(error =>{
+            console.error(error)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'incorrect password or email',
+                footer: '<a href="">Why do I have this issue?</a>'
+              })
+        }) 
     }
     return (
         <div className=" min-h-screen bg-base-100">
