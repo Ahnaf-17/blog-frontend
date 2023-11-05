@@ -4,6 +4,7 @@ import Home from "../Pages/Hpme/Home";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import AllBlog from "../Pages/AllBlog/AllBlog";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,11 @@ const router = createBrowserRouter([
         {
             path:'/register',
             element:<Register></Register>
+        },
+        {
+          path: '/allBlogs',
+          element:<AllBlog></AllBlog>,
+          loader: ()=> fetch('/fakedata.json')
         }
       ]
     },
