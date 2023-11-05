@@ -24,10 +24,10 @@ const AuthProvider = ({children}) => {
     //     return signInWithPopup(auth,provider)
 
     // }
-    // const logOut = () =>{
-    //     setLoading(true)
-    //     return signOut(auth)
-    // }
+    const logOut = () =>{
+        setLoading(true)
+        return signOut(auth)
+    }
 
     useEffect(()=>{
         const unSubscribe = onAuthStateChanged(auth, currentUser=>{
@@ -44,7 +44,8 @@ const AuthProvider = ({children}) => {
         user,
         loading,
         createUser,
-        logIn
+        logIn,
+        logOut
 
     }
     return (
