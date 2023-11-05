@@ -51,12 +51,6 @@ const Navbar = () => {
             </ul>
         </div>
         <div className="navbar-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full">
-                    {/* <img src={avatar} /> https://i.ibb.co/ZBXgGBM/user.png*/}
-
-                </div>
-            </label>
             {/* https://i.ibb.co/fqgXySz/avater.png */}
             <div className="dropdown dropdown-end">
                 {
