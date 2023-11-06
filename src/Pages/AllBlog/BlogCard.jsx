@@ -1,17 +1,9 @@
+/* eslint-disable react/prop-types */
 
 const BlogCard = ({ blog }) => {
-    const { title, image, short_description } = blog;
+    const { title, image, short_description,category } = blog;
     return (
-        // <div className="card  lg:card-side bg-base-100 shadow-xl">
-        //     <figure ><img className="" src={image} alt="Album" /></figure>
-        //     <div className="card-body">
-        //         <h2 className="card-title">{title}</h2>
-        //         <p>{short_description}</p>
-        //         <div className="card-actions justify-end">
-        //             <button className="btn btn-primary">Listen</button>
-        //         </div>
-        //     </div>
-        // </div>
+
         <div className="card bg-base-100 shadow-xl  lg:flex">
             <div>
                 <figure><img className="md:h-[300px] rounded-t-xl md:w-full" src={image} alt="Shoes" /></figure>
@@ -21,9 +13,10 @@ const BlogCard = ({ blog }) => {
                     {title}
                 </h2>
                 <p>{short_description}</p>
+                <p className="font-semibold">{category}</p>
                 <div className="card-actions justify-end">
-                    <div className="badge badge-outline">Fashion</div>
-                    <div className="badge badge-outline">Products</div>
+                    <button className="badge badge-outline">View details</button>
+                    <button className="badge badge-outline">Wishlist</button>
                 </div>
             </div>
         </div>

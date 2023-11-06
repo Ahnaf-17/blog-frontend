@@ -5,6 +5,8 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import AllBlog from "../Pages/AllBlog/AllBlog";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import WishList from "../Pages/WishList/WishList";
 
 const router = createBrowserRouter([
     {
@@ -28,7 +30,11 @@ const router = createBrowserRouter([
         {
           path: '/allBlogs',
           element:<AllBlog></AllBlog>,
-          loader: ()=> fetch('/fakedata.json')
+          // loader: ()=> fetch('http://localhost:5000/blogs')
+        },
+        {
+          path: '/wishlist',
+          element: <PrivateRoute><WishList></WishList></PrivateRoute>
         }
       ]
     },
