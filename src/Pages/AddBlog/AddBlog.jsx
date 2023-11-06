@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 
 const AddBlog = () => {
     const handleAddBlog = e =>{
@@ -5,13 +6,36 @@ const AddBlog = () => {
         const form = e.target;
         const title = form.title.value;
         const category = form.category.value;
-        const photo = form.photo.value;
-        const shortDetails = form.shortDetails.value;
-        const details = form.details.value;
+        const image = form.image.value;
+        const short_description = form.short_description.value;
+        const long_description = form.long_description.value;
+        const datetime = form.datetime.value;
 
-        const newBlog = {title,category,photo,shortDetails,details};
+        const newBlog = {title,category,image,short_description,long_description,datetime};
         console.log(newBlog)
+
+        fetch('http://localhost:5000/blogs', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json" 
+            },
+            body: JSON.stringify(newBlog)
+        })
+        .then(res => res.json())
+        .then(data=>{
+            console.log(data)
+            if(data.insertedId){
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'new blog added added',
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                  })
+            }
+        })
+
     }
+    
 
 
 
@@ -51,7 +75,7 @@ const AddBlog = () => {
                         <span className="label-text text-white"> Photo URL</span>
                     </label>
                     <label className="input-group">
-                        <input type="text" name="photo" placeholder="photo url" className="input input-bordered w-full" />
+                        <input type="text" name="image" placeholder="photo url" className="input input-bordered w-full" />
                     </label>
                 </div>
                 <div className="form-control md:w-1/2 md:ml-3">
@@ -59,7 +83,15 @@ const AddBlog = () => {
                         <span className="label-text text-white">Short  Details</span>
                     </label>
                     <label className="input-group">
-                        <input type="text" name="shortDetails" placeholder="Short details" className="input input-bordered w-full" />
+                        <input type="text" name="short_description" placeholder="Short details" className="input input-bordered w-full" />
+                    </label>
+                </div>
+                <div className="form-control md:w-1/2 md:ml-3">
+                    <label className="label">
+                        <span className="label-text text-white">Date</span>
+                    </label>
+                    <label className="input-group">
+                        <input type="datetime-local" name="datetime" id="" />
                     </label>
                 </div>
 
@@ -68,7 +100,7 @@ const AddBlog = () => {
             <div className="">
 
                 <div className="form-control md:w-full mt-5">
-                    <textarea className="rounded-md" name="details" id="" cols="30" rows="10" placeholder="write details here"></textarea>
+                    <textarea className="rounded-md" name="long_description" id="" cols="30" rows="10" placeholder="write details here"></textarea>
                 </div>
             </div>
 
