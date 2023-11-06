@@ -1,4 +1,3 @@
-import { useLoaderData } from "react-router-dom";
 import BlogCard from "./BlogCard";
 import { useQuery } from "@tanstack/react-query";
 

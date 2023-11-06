@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 
+import { Link } from "react-router-dom";
+
 const BlogCard = ({ blog }) => {
-    const { title, image, short_description,category } = blog;
+    const { _id,title, image, short_description,category } = blog;
     return (
 
         <div className="card bg-base-100 shadow-xl  lg:flex">
@@ -15,8 +17,10 @@ const BlogCard = ({ blog }) => {
                 <p>{short_description}</p>
                 <p className="font-semibold">{category}</p>
                 <div className="card-actions justify-end">
+                    <Link to={`/details/${_id}`}>
                     <button className="badge badge-outline">View details</button>
-                    <button className="badge badge-outline">Wishlist</button>
+                    </Link>
+                    <button className="badge badge-outline mt-0.5">Wishlist</button>
                 </div>
             </div>
         </div>
