@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import 'react-photo-view/dist/react-photo-view.css';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const BlogDetailPage = ({ selectedBlog }) => {
     const {_id, title, image, short_description, long_description } = selectedBlog || {}
@@ -12,7 +14,7 @@ const BlogDetailPage = ({ selectedBlog }) => {
                     <div className="hero-content flex-col lg:flex-row">
                         <div className="foo">
                             <PhotoView key={_id} src={image}>
-                                <img className="md:max-w-xl max-w-sm rounded-lg shadow-2xl" src={image} alt="" />
+                                <img className="md:max-w-xl max-w-sm rounded-lg shadow-2xl" src={image || <Skeleton></Skeleton>} alt=""/>
                             </PhotoView>
                         </div>
 

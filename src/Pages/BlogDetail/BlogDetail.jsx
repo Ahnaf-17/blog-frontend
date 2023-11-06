@@ -3,25 +3,29 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BlogDetailPage from "./BlogDetailPage";
 
-const BlogDetail = () => {
-    const [selectedBlog,setSelectedBlog] = useState();
-    const {_id} = useParams()
+import 'react-loading-skeleton/dist/skeleton.css'
+import BlogSkull from "./BlogSkall";
 
-    const {isPending,data: AllBlog} = useQuery({
+const BlogDetail = () => {
+    const [selectedBlog, setSelectedBlog] = useState();
+    const { _id } = useParams()
+
+    const { isPending, data: AllBlog } = useQuery({
         queryKey: ['blogs'],
-        queryFn: async ()=>{
+        queryFn: async () => {
             const res = await fetch('http://localhost:5000/blogs')
             return res.json()
         }
     })
 
-    useEffect(()=>{
-        const findDetails = AllBlog?.find(selectedBlog=>selectedBlog._id == _id);
+    useEffect(() => {
+        const findDetails = AllBlog?.find(selectedBlog => selectedBlog._id == _id);
         setSelectedBlog(findDetails)
-    },[AllBlog, _id])
+    }, [AllBlog, _id])
 
-    if(isPending){
-        return <span className="loading loading-spinner loading-lg"></span>
+    if (isPending) {
+        return <BlogSkull></BlogSkull>
+        // <span className="loading loading-spinner loading-lg"></span>
 
     }
 
