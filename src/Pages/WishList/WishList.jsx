@@ -1,12 +1,16 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { useQuery } from "@tanstack/react-query";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Link, useParams } from "react-router-dom";
 import WishListSkull from "./WishListSkull";
+import Swal from "sweetalert2";
 
 const WishList = () => {
     const {user} = useContext(AuthContext)
-    const {_id} = useParams()
+    const [blogs,setWishlistBlogs] = useState([])
+    
 
 
     const { isLoading, data: wishlistBlog } = 
@@ -14,21 +18,14 @@ const WishList = () => {
         queryKey: ['wishlist',user.email],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/wishlist/${user.email}`)
+            // setWishlistBlogs(res.json())
+            // console.log('xxxx:',res);
             return res.json()
+
             
         }
     
     })
-
-    // const {data: blog } = useQuery({
-    //     queryKey: ['blogs'],
-    //     queryFn: async () => {
-    //         const res = await fetch('http://localhost:5000/blogs')
-    //         return res.json()
-            
-    //     }
-    // })
-
 
     // useEffect(()=>{
     //     fetch(`http://localhost:5000/wishlist/${user.email}`)
@@ -39,6 +36,55 @@ const WishList = () => {
     //     })
         
     // },[user.email])
+    // setRemainBlogs(wishlistBlog)
+    // const handleDeleteWishlist = id => {
+    //     fetch(`http://localhost:5000/wishlist/${id}`, {
+    //         method: "DELETE"
+    //     }).then(res => res.json())
+    //         .then(data => {
+    //             if (data.deletedCount > 0) {
+    //                 Swal.fire(
+    //                     'Deleted!',
+    //                     'Your product has been removed.',
+    //                     'success'
+    //                 )
+    //                 .then((result) => {
+    //                     console.log(result)
+    //                 })
+    //                 const remainingBlog = wishlistBlog.filter(item => item._id !== id)
+    //                 setWishlistBlogs(remainingBlog)
+    //                 console.log("remain ",remainingBlog)
+                    
+    //             }
+    //         })
+
+
+    const handleDeleteWishlist = (id) => {
+  fetch(`http://localhost:5000/wishlist/${id}`, {
+    method: "DELETE"
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.deletedCount > 0) {
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'Your product has been removed.',
+          icon: 'success',
+          confirmButtonText: 'OK' // Customize the OK button text
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            // Reload the page when the OK button is clicked
+            window.location.reload();
+          }
+        });
+
+        const remainingBlog = wishlistBlog.filter((item) => item._id !== id);
+        setWishlistBlogs(remainingBlog);
+      }
+    });
+};
+    
 
 
     return (
@@ -57,10 +103,10 @@ const WishList = () => {
                         <p>{item.short_description}</p>
                         <p className="font-semibold">{item.category}</p>
                         <div className="card-actions justify-end">
-                            <Link to={`/details/${_id}`}>
+                            <Link to={`/details/${item.productId}`}>
                             <button className="badge badge-outline">View details</button>
                             </Link>
-                            <button className="badge badge-outline mt-0.5">Remove</button>
+                            <button onClick={()=>handleDeleteWishlist(item._id)} className="badge badge-outline mt-0.5">Remove</button>
                         </div>
                     </div>
                 </div>

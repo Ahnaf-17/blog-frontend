@@ -18,8 +18,6 @@ const BlogDetailPage = ({ selectedBlog }) => {
                             </PhotoView>
                         </div>
 
-                        {/* <img src={image} className="md:max-w-xl max-w-sm rounded-lg shadow-2xl" /> */}
-                        {/* <ReactPhotoView src={image}></ReactPhotoView> */}
                         <div>
                             <h1 className="text-4xl font-bold">{title}</h1>
                             <p className="py-6">{short_description}</p>

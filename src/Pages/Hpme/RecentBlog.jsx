@@ -1,16 +1,17 @@
 /* eslint-disable react/prop-types */
-
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../Provider/AuthProvider";
 
-const BlogCard = ({ blog }) => {
+const RecentBlog = ({blog}) => {
+    console.log('ssss: ')
     const { _id, title, image, short_description, long_description, category } = blog;
     const { user } = useContext(AuthContext)
 
+
     const handleWishlist = () => {
-        const wishlistBlog = { user, title, category, image, short_description, long_description,productId:_id };
+        const wishlistBlog = { user, title, category, image, short_description, long_description };
 
         // const isExist = 
 
@@ -36,10 +37,7 @@ const BlogCard = ({ blog }) => {
 
 
     }
-
-
     return (
-
         <div className="card bg-base-100 shadow-xl  lg:flex">
             <div>
                 <figure><img className="md:h-[300px] rounded-t-xl md:w-full" src={image} alt="Shoes" /></figure>
@@ -61,5 +59,4 @@ const BlogCard = ({ blog }) => {
     );
 };
 
-export default BlogCard;
-// lg:h-64
+export default RecentBlog;
