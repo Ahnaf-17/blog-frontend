@@ -12,15 +12,20 @@ const Home = () => {
         }
     })
     console.log(recentBlog)
+    // if(recentBlog){
+    //     const latestData = recentBlog.slice(-6);
+    // }
 
     return (
         <div>
             <Banner></Banner>
-            <section className="mb-10">
-                <div>
+            <section className="mb-10 mt-20">
+            <h3 className="text-stone-500 my-20 font-bold text-4xl text-center">Recent Blogs</h3>
+                <div  className="grid md:grid-cols-2 grid-cols-1 gap-6">
+                    
                     {
                         isLoading ? <p>loading...</p> :
-                        recentBlog.slice(0,6).map(blog =>(
+                        recentBlog.slice(-6).map(blog =>(
                             <RecentBlog key={blog._id} blog={blog}></RecentBlog>
                         ))
                     }
@@ -31,3 +36,6 @@ const Home = () => {
 };
 
 export default Home;
+
+
+
