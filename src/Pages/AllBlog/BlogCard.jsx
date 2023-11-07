@@ -1,9 +1,42 @@
 /* eslint-disable react/prop-types */
 
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const BlogCard = ({ blog }) => {
-    const { _id,title, image, short_description,category } = blog;
+    const { _id,title, image, short_description,long_description,category } = blog;
+    const {user} = useContext(AuthContext)
+
+    const handleWishlist = () =>{
+        const wishlistBlog = {user,title,category,image,short_description,long_description};
+
+        // const isExist = 
+
+        fetch('http://localhost:5000/wishlist', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json" 
+            },
+            body: JSON.stringify(wishlistBlog)
+        })
+        .then(res => res.json())
+        .then(data=>{
+            console.log(data)
+            if(data.insertedId){
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'blog added to wishlist',
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                  })
+            }
+        })
+        
+    }
+
+
     return (
 
         <div className="card bg-base-100 shadow-xl  lg:flex">
@@ -20,7 +53,7 @@ const BlogCard = ({ blog }) => {
                     <Link to={`/details/${_id}`}>
                     <button className="badge badge-outline">View details</button>
                     </Link>
-                    <button className="badge badge-outline mt-0.5">Wishlist</button>
+                    <button onClick={handleWishlist} className="badge badge-outline mt-0.5">Wishlist</button>
                 </div>
             </div>
         </div>

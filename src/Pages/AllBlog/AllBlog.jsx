@@ -14,11 +14,6 @@ const AllBlog = () => {
             
         }
     })
-    // if(isLoading){
-    //     return 
-    //     <span className="loading loading-spinner loading-lg"></span>
-
-    // }
     return (
         <div >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mx-14 my-16 ">
