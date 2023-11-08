@@ -13,7 +13,7 @@ const BlogDetail = () => {
     const { isPending, data: AllBlog } = useQuery({
         queryKey: ['blogs'],
         queryFn: async () => {
-            const res = await fetch('https://blog-server-rl5ch4hji-ahnaf-ahmeds-projects.vercel.app/blogs')
+            const res = await fetch('https://blog-server-1qfpy22zn-ahnaf-ahmeds-projects.vercel.app/blogs')
             return res.json()
         }
     })

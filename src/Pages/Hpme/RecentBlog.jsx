@@ -15,7 +15,7 @@ const RecentBlog = ({blog}) => {
 
         // const isExist = 
 
-        fetch('https://blog-server-rl5ch4hji-ahnaf-ahmeds-projects.vercel.app/wishlist', {
+        fetch('https://blog-server-1qfpy22zn-ahnaf-ahmeds-projects.vercel.app/wishlist', {
             method: "POST",
             headers: {
                 "content-type": "application/json"

@@ -28,7 +28,7 @@ const BlogDetailPage = ({ selectedBlog }) => {
     // const { isLoading, data: comment } = useQuery({
     //     queryKey: ['blogs'],
     //     queryFn: async () => {
-    //         const res = await fetch('https://blog-server-rl5ch4hji-ahnaf-ahmeds-projects.vercel.app/comment')
+    //         const res = await fetch('https://blog-server-1qfpy22zn-ahnaf-ahmeds-projects.vercel.app/comment')
     //         return res.json()
 
     //     }
