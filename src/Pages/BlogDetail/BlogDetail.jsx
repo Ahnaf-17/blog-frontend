@@ -18,6 +18,7 @@ const BlogDetail = () => {
         }
     })
 
+
     useEffect(() => {
         const findDetails = AllBlog?.find(selectedBlog => selectedBlog._id == _id);
         setSelectedBlog(findDetails)
@@ -28,10 +29,6 @@ const BlogDetail = () => {
         // <span className="loading loading-spinner loading-lg"></span>
 
     }
-
-
-
-
 
     return (
         <div>

@@ -4,14 +4,16 @@ import RecentBlog from "./RecentBlog";
 import NewsLetter from "./NewsLetter";
 import BlogerOfTheMonth from "./BlogerOfTheMonth";
 import Photo from "./Photo";
+import { motion, useScroll } from "framer-motion";
 
 const Home = () => {
-    const {isLoading, data: recentBlog } = useQuery({
+    const { scrollYProgress } = useScroll()
+    const { isLoading, data: recentBlog } = useQuery({
         queryKey: ['blogs'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/blogs')
             return res.json()
-            
+
         }
     })
     console.log(recentBlog)
@@ -19,18 +21,35 @@ const Home = () => {
     //     const latestData = recentBlog.slice(-6);
     // }
 
+
+
     return (
-        <div>
+        <>
+            <motion.div
+                style={{
+                    scaleX: scrollYProgress,
+                    position: "fixed",
+                    top: 0,
+                    right: 0,
+                    left: 0,
+                    background: "red",
+                    height: 10,
+                    transformOrigin: "0%"
+                }}
+            >
+            </motion.div>
+
             <Banner></Banner>
-            <section className="mb-10 mt-20 20 p-3 lg:p-0">
-            <h3 className="text-stone-500 my-20 font-bold text-4xl text-center">Recent Blogs</h3>
-                <div  className="grid md:grid-cols-2 grid-cols-1 gap-6">
-                    
+            <section
+                className="mb-10 mt-20 20 p-3 lg:p-0">
+                <h3 className="text-stone-500 my-20 font-bold text-4xl text-center">Recent Blogs</h3>
+                <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+
                     {
                         isLoading ? <p>loading...</p> :
-                        recentBlog.slice(-6).map(blog =>(
-                            <RecentBlog key={blog._id} blog={blog}></RecentBlog>
-                        ))
+                            recentBlog.slice(-6).map(blog => (
+                                <RecentBlog key={blog._id} blog={blog}></RecentBlog>
+                            ))
                     }
                 </div>
             </section>
@@ -44,10 +63,10 @@ const Home = () => {
             </section>
             {/* photo  */}
             <section className="my-20 p-3 lg:p-0">
-            <h3 className="text-stone-500 my-20 font-bold text-4xl text-center">Best Instagram Photos</h3>
+                <h3 className="text-stone-500 my-20 font-bold text-4xl text-center">Best Instagram Photos</h3>
                 <Photo></Photo>
             </section>
-        </div>
+        </>
     );
 };
 

@@ -1,15 +1,18 @@
+/* eslint-disable no-unused-vars */
 import BlogCard from "./BlogCard";
 import { useQuery } from "@tanstack/react-query";
 import AllBlogSkull from "./AllBlogSkull";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const AllBlog = () => {
     // const blog = useLoaderData()
     // const { loading } = useContext(AuthContext)
     // const [loading,setLoading] = useState(true)
     const [filter, setFilter] = useState('');
-    const [search, setSearch] = useState('')
-    const { isLoading, data: blog } = useQuery({
+    const [search, setSearch] = useState('');
+    const [blog,setBlog] = useState([])
+    
+    const { isLoading, data: fetchedblog } = useQuery({
         queryKey: ['blogs'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/blogs')
@@ -17,14 +20,24 @@ const AllBlog = () => {
 
         }
     })
-    const finalBlog = blog.filter(blogs => filter === '' || blogs.category === filter).filter(blogs => search === '' || blogs.title.toLowerCase().includes(search.toLocaleLowerCase()))
+    useEffect(()=>{
+        setBlog(fetchedblog || [])
+    },[fetchedblog])
 
     const handleFilter = (category) => {
         setFilter(category)
+        onProcess(category,search)
     }
     const handleSearch = (title) => {
         setSearch(title)
+        onProcess(filter,title)
     }
+    const onProcess = (category,title)=>{
+        const finalBlog = blog.filter(blogs => filter === '' || blogs.category === filter).filter(blogs => search === '' || blogs.title.toLowerCase().includes(search.toLocaleLowerCase()))
+        setBlog(finalBlog)
+    }
+
+
     return (
         <div >
             <div className="mb-6">
@@ -54,7 +67,7 @@ const AllBlog = () => {
 
                 {
                     isLoading ? <AllBlogSkull card={20}></AllBlogSkull> :
-                        finalBlog.map(blog => <BlogCard key={blog.id} blog={blog}></BlogCard>)
+                        blog.map(blog => <BlogCard key={blog.id} blog={blog}></BlogCard>)
                 }
             </div>
         </div>
