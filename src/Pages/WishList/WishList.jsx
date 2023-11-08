@@ -62,7 +62,7 @@ const WishList = () => {
                             }
                         });
                         
-                        const remainingBlog = wishlistBlog.filter((item) => item._id !== id);
+                        const remainingBlog = wishlistBlog?.filter((item) => item._id !== id);
                         console.log(remainingBlog);
                         setWishlistBlogs(remainingBlog);
                 }

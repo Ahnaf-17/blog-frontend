@@ -1,10 +1,24 @@
 import { useContext } from "react";
-import Swal from "sweetalert2";
 import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
+import { useQuery } from "@tanstack/react-query";
 
-const AddBlog = () => {
+const UpdateBlog = () => {
     const {user} = useContext(AuthContext)
-    const handleAddBlog = e =>{
+
+    const { isLoading, data: AllBlog } = useQuery({
+        queryKey: ['blogs'],
+        queryFn: async () => {
+            const res = await fetch('http://localhost:5000/blogs')
+            return res.json()
+        }
+    })
+    if(isLoading){
+        return <p>Loading...</p>
+    }
+
+    const {_id, title, image, short_description, long_description,category,datetime } = AllBlog || {}
+    const handleUpdateBlog = e =>{
         e.preventDefault()
         const form = e.target;
         const title = form.title.value;
@@ -21,8 +35,8 @@ const AddBlog = () => {
         };
         console.log(newBlog)
 
-        fetch('http://localhost:5000/blogs', {
-            method: "POST",
+        fetch(`http://localhost:5000/blogUpdate/${_id}`, {
+            method: "PUT",
             headers: {
                 "content-type": "application/json" 
             },
@@ -43,30 +57,28 @@ const AddBlog = () => {
 
     }
     
-
-
-
     return (
         <div>
         <div className="bg-base-100 p-24">
-        <h2 className="text-2xl text-black text-center font-bold">Add a new blog</h2>
-        <form onSubmit={handleAddBlog}>
+        <h2 className="text-2xl text-black text-center font-bold">Add a Update blog</h2>
+        <form onSubmit={handleUpdateBlog
+}>
             {/* row */}
             <div className="md:flex">
                 <div className="form-control md:w-1/2">
                     <label className="label">
-                        <span className="label-text text-black">Title</span>
+                        <span className="label-text text-white">Title</span>
                     </label>
                     <label className="input-group">
-                        <input type="text" placeholder="Blog title"
+                        <input type="text" defaultValue={title} placeholder="Blog title"
                             name="title" className="input input-bordered w-full" />
                     </label>
                 </div>
                 <div className="form-control md:w-1/2 md:ml-3">
                     <label className="label">
-                        <span className="label-text text-black">Category</span>
+                        <span className="label-text text-white">Category</span>
                     </label>
-                    <select className="h-[46px]" name="category" id="category">
+                    <select defaultValue={category} className="h-[46px]" name="category" id="category">
                         <option value="one-day-tour">One-day Tour</option>
                         <option value="backpack-tour">Backpack Tour</option>
                         <option value="camping-tour">Camping</option>
@@ -79,26 +91,26 @@ const AddBlog = () => {
 
                 <div className="form-control md:w-1/2 ">
                 <label className="label">
-                        <span className="label-text text-black"> Photo URL</span>
+                        <span className="label-text text-white"> Photo URL</span>
                     </label>
                     <label className="input-group">
-                        <input type="text" name="image" placeholder="photo url" className="input input-bordered w-full" />
+                        <input type="text" defaultValue={image} name="image" placeholder="photo url" className="input input-bordered w-full" />
                     </label>
                 </div>
                 <div className="form-control md:w-1/2 md:ml-3">
                     <label className="label">
-                        <span className="label-text text-black">Short  Details</span>
+                        <span className="label-text  text-white">Short  Details</span>
                     </label>
                     <label className="input-group">
-                        <input type="text" name="short_description" placeholder="Short details" className="input input-bordered w-full" />
+                        <input type="text" defaultValue={short_description} name="short_description" placeholder="Short details" className="input input-bordered w-full" />
                     </label>
                 </div>
                 <div className="form-control md:w-1/2 md:ml-3">
                     <label className="label">
-                        <span className="label-text text-black">Date</span>
+                        <span className="label-text text-white">Date</span>
                     </label>
                     <label className="input-group">
-                        <input type="datetime-local" name="datetime" id="" />
+                        <input type="datetime-local" defaultValue={datetime} name="datetime" id="" />
                     </label>
                 </div>
 
@@ -107,11 +119,11 @@ const AddBlog = () => {
             <div className="">
 
                 <div className="form-control md:w-full mt-5">
-                    <textarea className="rounded-md" name="long_description" id="" cols="30" rows="10" placeholder="write details here"></textarea>
+                    <textarea className="rounded-md" name="long_description" defaultValue={long_description} id="" cols="30" rows="10" placeholder="write details here"></textarea>
                 </div>
             </div>
 
-            <input type="submit" value="Add Blog" className="btn btn-block bg-gray-700 text-white mt-5 " />
+            <input type="submit" value="Update Blog" className="btn btn-block bg-gray-700 text-white mt-5 " />
 
         </form>
     </div>
@@ -119,4 +131,4 @@ const AddBlog = () => {
     );
 };
 
-export default AddBlog;
+export default UpdateBlog;

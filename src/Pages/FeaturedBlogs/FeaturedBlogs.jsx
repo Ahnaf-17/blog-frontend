@@ -40,8 +40,12 @@ const FeaturedBlogs = () => {
         //   sortable: true,
         },
         {
-          name: 'Profile Picture',
+          name: 'Owner Profile',
           cell: (row) => <img className="w-14 h-14 rounded-full my-1"  src={row.profile} alt="Profile" />,
+        },
+        {
+          name: 'Cover image',
+          cell: (row) => <img className="w-20 h-20  my-1"  src={row.image} alt="place" />,
         },
       ];
 

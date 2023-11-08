@@ -3,9 +3,17 @@ import 'react-photo-view/dist/react-photo-view.css';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { useContext } from 'react';
+import { AuthContext } from '../../Provider/AuthProvider';
+import { Link } from 'react-router-dom';
 
 const BlogDetailPage = ({ selectedBlog }) => {
-    const {_id, title, image, short_description, long_description } = selectedBlog || {}
+    const {user} = useContext(AuthContext)
+    const {_id, title, image, short_description, long_description,userEmail } = selectedBlog || {}
+    
+    const BlogOwner = user.email == userEmail;
+
+
     return (
         <PhotoProvider>
             <div>
@@ -21,7 +29,12 @@ const BlogDetailPage = ({ selectedBlog }) => {
                         <div>
                             <h1 className="text-4xl font-bold">{title}</h1>
                             <p className="py-6">{short_description}</p>
-
+                            {/* {
+                                BlogOwner ? <button className='btn bg-stone-400 text-white'>Update Blog</button> : ''
+                            } */}
+                            <Link to={`/updateBlog/${_id}`}>
+                            <button className='btn bg-stone-400 text-white'>Update Blog</button>
+                            </Link>
                         </div>
                     </div>
                 </div>
