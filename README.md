@@ -1,8 +1,11 @@
-# React + Vite
+# Blog-Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+# live link : https://blog-a53ab.web.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# features
+- Recent 6 recent post displayed in the home page
+- Top 10 post listed in featured blogs page(listed according to details length)
+- In all blogs page , blogs can be filtered by category and search by title
+- Any user can add a blog
+- wishlist is separated by user. each user will have unique wishlist

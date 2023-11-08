@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         {
           path: '/allBlogs',
           element:<AllBlog></AllBlog>,
-          // loader: ()=> fetch('http://localhost:5000/blogs')
+          // loader: ()=> fetch('https://blog-server-rl5ch4hji-ahnaf-ahmeds-projects.vercel.app/blogs')
         },
         {
           path: '/wishlist',
