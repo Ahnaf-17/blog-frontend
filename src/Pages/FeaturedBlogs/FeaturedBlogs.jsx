@@ -27,28 +27,28 @@ const FeaturedBlogs = () => {
         {
           name: 'Serial Number',
           selector: (row) => row.serial,
-          sortable: true,
+        //   sortable: true,
         },
         {
           name: 'Blog Title',
           selector: row => row.title,
-          sortable: true,
+        //   sortable: true,
         },
         {
           name: 'Blog Owner',
-          selector: row=> row.owner,
-          sortable: true,
+          selector: row=> row.name,
+        //   sortable: true,
         },
         {
           name: 'Profile Picture',
-          cell: (row) => <img src={row.image} alt="Profile" />,
+          cell: (row) => <img className="w-14 h-14 rounded-full my-1"  src={row.profile} alt="Profile" />,
         },
       ];
 
     
     return (
         <div>
-            <h1>Featured Blogs - Top 10 Posts</h1>
+            <h1>Top 10 Posts</h1>
       <DataTable
         columns={columns}
         data={featuredPost}

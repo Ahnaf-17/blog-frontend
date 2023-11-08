@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const AddBlog = () => {
+    const {user} = useContext(AuthContext)
     const handleAddBlog = e =>{
         e.preventDefault()
         const form = e.target;
@@ -10,8 +13,11 @@ const AddBlog = () => {
         const short_description = form.short_description.value;
         const long_description = form.long_description.value;
         const datetime = form.datetime.value;
+        const name = user.displayName
+        const profile = user.photoURL
 
-        const newBlog = {title,category,image,short_description,long_description,datetime};
+        const newBlog = {title,category,image,short_description,long_description,datetime,name,profile
+        };
         console.log(newBlog)
 
         fetch('http://localhost:5000/blogs', {
