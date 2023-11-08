@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         {
           path: '/allBlogs',
           element:<AllBlog></AllBlog>,
-          // loader: ()=> fetch('https://blog-server-1qfpy22zn-ahnaf-ahmeds-projects.vercel.app/blogs')
+          // loader: ()=> fetch('https://blog-server-eight-beta.vercel.app/blogs')
         },
         {
           path: '/wishlist',
