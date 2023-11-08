@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import Banner from "../../components/Banner/Banner";
 import RecentBlog from "./RecentBlog";
+import NewsLetter from "./NewsLetter";
 
 const Home = () => {
     const {isLoading, data: recentBlog } = useQuery({
@@ -30,6 +31,10 @@ const Home = () => {
                         ))
                     }
                 </div>
+            </section>
+            {/* news letter  */}
+            <section className="my-20">
+                <NewsLetter></NewsLetter>
             </section>
         </div>
     );

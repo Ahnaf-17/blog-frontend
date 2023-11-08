@@ -5,13 +5,13 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../../Provider/AuthProvider";
 
 const RecentBlog = ({blog}) => {
-    console.log('ssss: ')
+    // console.log('check: ')
     const { _id, title, image, short_description, long_description, category } = blog;
     const { user } = useContext(AuthContext)
 
 
     const handleWishlist = () => {
-        const wishlistBlog = { user, title, category, image, short_description, long_description };
+        const wishlistBlog = { user, title, category, image, short_description, long_description,productId:_id };
 
         // const isExist = 
 
