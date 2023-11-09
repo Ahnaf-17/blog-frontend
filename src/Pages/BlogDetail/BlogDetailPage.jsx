@@ -3,16 +3,17 @@ import 'react-photo-view/dist/react-photo-view.css';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { useContext  } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { useQuery } from '@tanstack/react-query';
 // import { useQuery } from '@tanstack/react-query';
 // import Comment from './Comment';
 
 const BlogDetailPage = ({ selectedBlog }) => {
     const { user } = useContext(AuthContext)
-    // const [comments,setComments] = useState([])
+    const [comments, setComments] = useState([])
     const { _id, title, image, short_description, long_description, userEmail } = selectedBlog || {}
 
     const BlogOwner = user.email == userEmail;
@@ -20,12 +21,12 @@ const BlogDetailPage = ({ selectedBlog }) => {
     const handleComment = e => {
         e.preventDefault();
         const form = e.target;
-        const comment = form.comment.value
+        const commentTxt = form.comment.value
         const userEmail = user.email
         const userName = user.displayName
         const profile = user.photoURL
 
-        const newComment = { comment, userEmail, userName, profile, _id }
+        const newComment = { comment: commentTxt, userEmail, userName, profile, cmtID: _id }
         console.log(newComment);
 
         fetch('http://localhost:5000/comment', {
@@ -41,28 +42,39 @@ const BlogDetailPage = ({ selectedBlog }) => {
                 if (data.insertedId) {
                     Swal.fire({
                         title: 'Success!',
-                        text: 'new blog added added',
+                        text: 'comment added',
                         icon: 'success',
                         confirmButtonText: 'Cool'
+
                     })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                            
+                        }
+                    });
                 }
             })
     }
 
-    // const { isLoading, data: comment } = useQuery({
-    //     queryKey: ['comments'],
-    //     queryFn: async () => {
-    //         const res = await fetch(`http://localhost:5000/comment${_id}`)
-    //         return res.json()
-    //         // http://localhost:5000
+    const { isLoading, data: comment } = useQuery({
+        queryKey: ['comments'],
+        queryFn: async () => {
+            const res = await fetch('http://localhost:5000/comment')
+            return res.json()
+            // http://localhost:5000
 
-    //     }
-    // })
-    // useEffect(()=>{
-    //     setComments(comment)
-    // },[])
+        }
+    })
+    useEffect(() => {
+        if(comment !== undefined){
+            const filteredCmt = comment.filter(item => item.cmtID === _id);
+        setComments(filteredCmt)
+        // setComments(comment)
+        }
+    }, [_id, comment])
 
-    
+
 
 
     return (
@@ -81,7 +93,7 @@ const BlogDetailPage = ({ selectedBlog }) => {
                             <h1 className="text-4xl font-bold">{title}</h1>
                             <p className="py-6">{short_description}</p>
                             {/* {
-                                BlogOwner ? <button className='btn bg-stone-400 text-white'>Update Blog</button> : ''
+                                BlogOwner ? <button classNameName='btn bg-stone-400 text-white'>Update Blog</button> : ''
                             } */}
                             {
                                 BlogOwner ? <Link to={`/UpdateBlog/${_id}`}>
@@ -89,7 +101,7 @@ const BlogDetailPage = ({ selectedBlog }) => {
                                 </Link> : ''
                             }
                             {/* <Link to={`/UpdateBlog/${_id}`}>
-                                    <button className='btn bg-stone-400 text-white'>Update Blog</button>
+                                    <button classNameName='btn bg-stone-400 text-white'>Update Blog</button>
                                 </Link> */}
 
                         </div>
@@ -111,11 +123,39 @@ const BlogDetailPage = ({ selectedBlog }) => {
 
                         </form> : ''
                 }
-                {/* {
-                    isLoading ? <p>loading..</p> : 
-                    comments.map(cmt => <Comment key={cmt._id} cmt={cmt}></Comment>)
+                {
+                    isLoading ? <p>loading..</p> :
+                        comments.map(cmt =>
 
-                } */}
+
+                            <div key={cmt.id} className=" border-t-2  border-stone-400 relative my-6 flex w-full max-w-[26rem] flex-col rounded-xl   text-gray-700 shadow-none">
+                                <div className="relative flex items-center gap-4 pt-0 pb-4 pl-3 mx-0 mt-4 overflow-hidden text-gray-700 bg-transparent shadow-none rounded-xl bg-clip-border">
+                                    <img
+                                        src={cmt.profile}
+                                        alt="tania andrew"
+                                        className="relative inline-block h-[38px] w-[38px] !rounded-full object-cover object-center"
+                                    />
+                                    <div className="flex w-full flex-col gap-0.5">
+                                        <div className="flex items-center justify-between">
+                                            <h5 className="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                                                {cmt.userName}
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="p-0 mb-6 pl-3">
+                                    <p className="block border-black font-sans text-xl antialiased font-light leading-relaxed text-inherit">
+                                        {cmt.comment}
+                                    </p>
+                                </div>
+                            </div>
+
+
+
+                        )
+
+                }
+
 
 
             </div>
