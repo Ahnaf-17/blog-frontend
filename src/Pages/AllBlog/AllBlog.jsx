@@ -17,6 +17,7 @@ const AllBlog = () => {
         queryFn: async () => {
             const res = await fetch('https://blog-server-eight-beta.vercel.app/blogs')
             return res.json()
+            // https://blog-server-eight-beta.vercel.app
 
         }
     })
@@ -33,7 +34,7 @@ const AllBlog = () => {
         onProcess(filter,title)
     }
     const onProcess = (category,title)=>{
-        const finalBlog = blog.filter(blogs => filter === '' || blogs.category === filter).filter(blogs => search === '' || blogs.title.toLowerCase().includes(search.toLocaleLowerCase()))
+        const finalBlog = fetchedblog.filter(blogs => category === '' || blogs.category === category).filter(blogs => search === '' || blogs.title.toLowerCase().includes(search.toLowerCase()))
         setBlog(finalBlog)
     }
 
@@ -75,3 +76,6 @@ const AllBlog = () => {
 };
 
 export default AllBlog;
+
+
+

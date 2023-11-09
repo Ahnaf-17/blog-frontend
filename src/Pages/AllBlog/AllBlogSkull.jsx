@@ -21,9 +21,6 @@ const AllBlogSkull = ({ card }) => {
                 </div>
             </div>
         </div>)
-        
-
-
     );
 };
 
