@@ -14,7 +14,7 @@ const BlogCard = ({ blog }) => {
 
         // const isExist = 
 
-        fetch('https://blog-server-eight-beta.vercel.app/wishlist', {
+        fetch('http://localhost:5000/wishlist', {
             method: "POST",
             headers: {
                 "content-type": "application/json"

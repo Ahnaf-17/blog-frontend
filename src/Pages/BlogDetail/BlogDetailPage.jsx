@@ -28,7 +28,7 @@ const BlogDetailPage = ({ selectedBlog }) => {
         const newComment = { comment, userEmail, userName, profile, _id }
         console.log(newComment);
 
-        fetch('https://blog-server-eight-beta.vercel.app/comment', {
+        fetch('http://localhost:5000/comment', {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -52,9 +52,9 @@ const BlogDetailPage = ({ selectedBlog }) => {
     // const { isLoading, data: comment } = useQuery({
     //     queryKey: ['comments'],
     //     queryFn: async () => {
-    //         const res = await fetch(`https://blog-server-eight-beta.vercel.app/comment${_id}`)
+    //         const res = await fetch(`http://localhost:5000/comment${_id}`)
     //         return res.json()
-    //         // https://blog-server-eight-beta.vercel.app
+    //         // http://localhost:5000
 
     //     }
     // })
@@ -83,11 +83,14 @@ const BlogDetailPage = ({ selectedBlog }) => {
                             {/* {
                                 BlogOwner ? <button className='btn bg-stone-400 text-white'>Update Blog</button> : ''
                             } */}
-                            {
-                                BlogOwner ? <Link to={`/updateBlog/${_id}`}>
+                            {/* {
+                                BlogOwner ? <Link to={`/blogs/${_id}`}>
                                     <button className='btn bg-stone-400 text-white'>Update Blog</button>
                                 </Link> : ''
-                            }
+                            } */}
+                            <Link to={`/updateBlogs/${_id}`}>
+                                    <button className='btn bg-stone-400 text-white'>Update Blog</button>
+                                </Link>
 
                         </div>
                     </div>

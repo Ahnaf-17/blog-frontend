@@ -11,7 +11,7 @@ const Home = () => {
     const { isLoading, data: recentBlog } = useQuery({
         queryKey: ['blogs'],
         queryFn: async () => {
-            const res = await fetch('https://blog-server-eight-beta.vercel.app/blogs')
+            const res = await fetch('http://localhost:5000/blogs')
             return res.json()
 
         }

@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         {
           path: '/allBlogs',
           element:<AllBlog></AllBlog>,
-          // loader: ()=> fetch('https://blog-server-eight-beta.vercel.app/blogs')
+          // loader: ()=> fetch('http://localhost:5000/blogs')
         },
         {
           path: '/wishlist',
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
           element: <FeaturedBlogs></FeaturedBlogs>
         },
         {
-          path:'/updateBlog/:id',
+          path:'/UpdateBlog/:id',
           element: <UpdateBlog></UpdateBlog>
         }
       ]
