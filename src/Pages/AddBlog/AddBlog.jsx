@@ -21,7 +21,7 @@ const AddBlog = () => {
         };
         console.log(newBlog)
 
-        fetch('https://blog-server-kz7m002s2-ahnaf-ahmeds-projects.vercel.app/blogs', {
+        fetch('https://blog-server-eight-beta.vercel.app/blogs', {
             method: "POST",
             headers: {
                 "content-type": "application/json" 

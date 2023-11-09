@@ -17,7 +17,7 @@ const WishList = () => {
         useQuery({
             queryKey: ['wishlist', user.email],
             queryFn: async () => {
-                const res = await fetch(`https://blog-server-kz7m002s2-ahnaf-ahmeds-projects.vercel.app/wishlist/${user.email}`)
+                const res = await fetch(`https://blog-server-eight-beta.vercel.app/wishlist/${user.email}`)
                 // setWishlistBlogs(res.json())
                 // console.log('xxxx:',res);
                 return res.json()
@@ -29,7 +29,7 @@ const WishList = () => {
         // setWishlistBlogs(wishlistBlog)
 
     // useEffect(()=>{
-    //     fetch(`https://blog-server-kz7m002s2-ahnaf-ahmeds-projects.vercel.app/wishlist/${user.email}`)
+    //     fetch(`https://blog-server-eight-beta.vercel.app/wishlist/${user.email}`)
     //     .then(res => res.json())
     //     .then(data => {
     //         console.log("this is data",data)
@@ -41,7 +41,7 @@ const WishList = () => {
 
 
     const handleDeleteWishlist = (id) => {
-        fetch(`https://blog-server-kz7m002s2-ahnaf-ahmeds-projects.vercel.app/wishlist/${id}`, {
+        fetch(`https://blog-server-eight-beta.vercel.app/wishlist/${id}`, {
             method: "DELETE"
         })
             .then((res) => res.json())

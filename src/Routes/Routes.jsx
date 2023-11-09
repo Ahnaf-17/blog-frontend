@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         {
           path: '/allBlogs',
           element:<AllBlog></AllBlog>,
-          // loader: ()=> fetch('https://blog-server-kz7m002s2-ahnaf-ahmeds-projects.vercel.app/blogs')
+          // loader: ()=> fetch('https://blog-server-eight-beta.vercel.app/blogs')
         },
         {
           path: '/wishlist',
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         {
           path:'/UpdateBlog/:id',
           element: <UpdateBlog></UpdateBlog>,
-          loader: ({params})=> fetch (`https://blog-server-kz7m002s2-ahnaf-ahmeds-projects.vercel.app/blogs/${params.id}`) //tried to use tanstack query but failed to fetch using params. so only in that case loader is used
+          loader: ({params})=> fetch (`https://blog-server-eight-beta.vercel.app/blogs/${params.id}`) //tried to use tanstack query but failed to fetch using params. so only in that case loader is used
 
         }
       ]

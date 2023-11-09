@@ -29,7 +29,7 @@ const BlogDetailPage = ({ selectedBlog }) => {
         const newComment = { comment: commentTxt, userEmail, userName, profile, cmtID: _id }
         console.log(newComment);
 
-        fetch('https://blog-server-kz7m002s2-ahnaf-ahmeds-projects.vercel.app/comment', {
+        fetch('https://blog-server-eight-beta.vercel.app/comment', {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -60,9 +60,9 @@ const BlogDetailPage = ({ selectedBlog }) => {
     const { isLoading, data: comment } = useQuery({
         queryKey: ['comments'],
         queryFn: async () => {
-            const res = await fetch('https://blog-server-kz7m002s2-ahnaf-ahmeds-projects.vercel.app/comment')
+            const res = await fetch('https://blog-server-eight-beta.vercel.app/comment')
             return res.json()
-            // https://blog-server-kz7m002s2-ahnaf-ahmeds-projects.vercel.app
+            // https://blog-server-eight-beta.vercel.app
 
         }
     })
