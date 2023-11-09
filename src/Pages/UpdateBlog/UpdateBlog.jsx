@@ -10,7 +10,7 @@ const UpdateBlog = () => {
     // const { isLoading, data: AllBlog } = useQuery({
     //     queryKey: ['blogs'],
     //     queryFn: async () => {
-    //         const res = await fetch(`http://localhost:5000/blogs/${params.id}}`)
+    //         const res = await fetch(`https://blog-server-kz7m002s2-ahnaf-ahmeds-projects.vercel.app/blogs/${params.id}}`)
     //         return res.json()
     //     }
     // })
@@ -37,7 +37,7 @@ const UpdateBlog = () => {
         };
         console.log(updatedBlog)
 
-        fetch(`http://localhost:5000/blogs/${_id}`, {
+        fetch(`https://blog-server-kz7m002s2-ahnaf-ahmeds-projects.vercel.app/blogs/${_id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json" 
