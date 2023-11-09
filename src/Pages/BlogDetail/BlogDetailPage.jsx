@@ -121,7 +121,7 @@ const BlogDetailPage = ({ selectedBlog }) => {
                                 <input type="submit" value="Post" className="btn  bg-gray-700 text-white h-10 " />
                             </div>
 
-                        </form> : ''
+                        </form> : 'Can not comment on own blog'
                 }
                 {
                     isLoading ? <p>loading..</p> :
