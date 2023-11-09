@@ -54,7 +54,9 @@ const router = createBrowserRouter([
         },
         {
           path:'/UpdateBlog/:id',
-          element: <UpdateBlog></UpdateBlog>
+          element: <UpdateBlog></UpdateBlog>,
+          loader: ({params})=> fetch (`http://localhost:5000/blogs/${params.id}`) //tried to use tanstack query but failed to fetch using params. so only in that case loader is used
+
         }
       ]
     },

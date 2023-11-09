@@ -83,14 +83,14 @@ const BlogDetailPage = ({ selectedBlog }) => {
                             {/* {
                                 BlogOwner ? <button className='btn bg-stone-400 text-white'>Update Blog</button> : ''
                             } */}
-                            {/* {
-                                BlogOwner ? <Link to={`/blogs/${_id}`}>
+                            {
+                                BlogOwner ? <Link to={`/UpdateBlog/${_id}`}>
                                     <button className='btn bg-stone-400 text-white'>Update Blog</button>
                                 </Link> : ''
-                            } */}
-                            <Link to={`/updateBlogs/${_id}`}>
+                            }
+                            {/* <Link to={`/UpdateBlog/${_id}`}>
                                     <button className='btn bg-stone-400 text-white'>Update Blog</button>
-                                </Link>
+                                </Link> */}
 
                         </div>
                     </div>

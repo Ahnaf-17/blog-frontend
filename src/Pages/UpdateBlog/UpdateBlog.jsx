@@ -1,23 +1,25 @@
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
-import { useQuery } from "@tanstack/react-query";
+import { useLoaderData } from "react-router-dom";
+// import { useQuery } from "@tanstack/react-query";
 
 const UpdateBlog = () => {
     const {user} = useContext(AuthContext)
 
-    const { isLoading, data: AllBlog } = useQuery({
-        queryKey: ['blogs'],
-        queryFn: async () => {
-            const res = await fetch('http://localhost:5000/blogs')
-            return res.json()
-        }
-    })
-    if(isLoading){
-        return <p>Loading...</p>
-    }
+    // const { isLoading, data: AllBlog } = useQuery({
+    //     queryKey: ['blogs'],
+    //     queryFn: async () => {
+    //         const res = await fetch(`http://localhost:5000/blogs/${params.id}}`)
+    //         return res.json()
+    //     }
+    // })
+    // if(isLoading){
+    //     return <p>Loading...</p>
+    // }
+    const blogs = useLoaderData()
 
-    const {_id, title, image, short_description, long_description,category,datetime } = AllBlog || {}
+    const {_id, title, image, short_description, long_description,category,datetime } = blogs || {}
     const handleUpdateBlog = e =>{
         e.preventDefault()
         const form = e.target;
@@ -31,24 +33,24 @@ const UpdateBlog = () => {
         const profile = user.photoURL
         const userEmail = user.email
 
-        const newBlog = {title,category,image,short_description,long_description,datetime,name,profile,userEmail
+        const updatedBlog = {title,category,image,short_description,long_description,datetime,name,profile,userEmail
         };
-        console.log(newBlog)
+        console.log(updatedBlog)
 
-        fetch(`http://localhost:5000/blogUpdate/${_id}`, {
+        fetch(`http://localhost:5000/blogs/${_id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json" 
             },
-            body: JSON.stringify(newBlog)
+            body: JSON.stringify(updatedBlog)
         })
         .then(res => res.json())
         .then(data=>{
             console.log(data)
-            if(data.insertedId){
+            if(data.modifiedCount>0){
                 Swal.fire({
                     title: 'Success!',
-                    text: 'new blog added added',
+                    text: 'blog updated',
                     icon: 'success',
                     confirmButtonText: 'Cool'
                   })
@@ -60,10 +62,9 @@ const UpdateBlog = () => {
     return (
         <div>
         <div className="bg-base-100 p-24">
-        <h2 className="text-2xl text-black text-center font-bold">Add a Update blog</h2>
+        <h2 className="text-2xl text-black text-center font-bold">Update a blog</h2>
         <form onSubmit={handleUpdateBlog
 }>
-            {/* row */}
             <div className="md:flex">
                 <div className="form-control md:w-1/2">
                     <label className="label">
@@ -85,7 +86,6 @@ const UpdateBlog = () => {
                     </select>
                 </div>
             </div>
-            {/* row */}
             <div className="md:flex">
 
 
@@ -115,7 +115,6 @@ const UpdateBlog = () => {
                 </div>
 
             </div>
-            {/* row */}
             <div className="">
 
                 <div className="form-control md:w-full mt-5">
